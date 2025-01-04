@@ -26,7 +26,7 @@ export const About = () => {
           About Us
         </h2>
         <div className="max-w-3xl mx-auto text-center mb-16 animate-fade-up [animation-delay:200ms]">
-          <p className="text-xl text-gray-300">
+          <p className="text-xl text-gray-300 hover:text-white transition-colors duration-300">
             At Automation Ally, we're passionate about bringing cutting-edge AI solutions to businesses. Our team of experts combines deep technical knowledge with industry expertise to deliver transformative results.
           </p>
         </div>
@@ -34,16 +34,22 @@ export const About = () => {
           {team.map((member, index) => (
             <Card
               key={member.name}
-              className="p-6 bg-white/5 backdrop-blur-lg border-white/10 text-center animate-fade-up"
+              className="p-6 bg-white/5 backdrop-blur-lg border-white/10 text-center animate-fade-up group hover:transform hover:scale-105 transition-all duration-500"
               style={{ animationDelay: `${400 + index * 200}ms` }}
             >
-              <img
-                src={member.image}
-                alt={member.name}
-                className="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
-              />
-              <h3 className="text-xl font-semibold text-white mb-1">{member.name}</h3>
-              <p className="text-gray-300">{member.role}</p>
+              <div className="relative w-32 h-32 mx-auto mb-4 overflow-hidden rounded-full group-hover:scale-110 transition-transform duration-300">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-1 group-hover:text-brand-purple transition-colors duration-300">
+                {member.name}
+              </h3>
+              <p className="text-gray-300 group-hover:text-white transition-colors duration-300">
+                {member.role}
+              </p>
             </Card>
           ))}
         </div>

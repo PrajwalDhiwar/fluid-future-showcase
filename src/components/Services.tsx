@@ -35,12 +35,16 @@ export const Services = () => {
           {services.map((service, index) => (
             <Card
               key={service.title}
-              className="p-6 bg-white/5 backdrop-blur-lg border-white/10 hover:bg-white/10 transition-all duration-300 animate-fade-up"
+              className="p-6 bg-white/5 backdrop-blur-lg border-white/10 hover:bg-white/10 transition-all duration-500 animate-fade-up group hover:transform hover:scale-105 hover:shadow-xl hover:shadow-brand-purple/20"
               style={{ animationDelay: `${index * 200}ms` }}
             >
-              <service.icon className="h-12 w-12 text-brand-purple mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-2">{service.title}</h3>
-              <p className="text-gray-300">{service.description}</p>
+              <service.icon className="h-12 w-12 text-brand-purple mb-4 group-hover:animate-bounce transition-transform duration-300" />
+              <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-brand-purple transition-colors duration-300">
+                {service.title}
+              </h3>
+              <p className="text-gray-300 group-hover:text-white transition-colors duration-300">
+                {service.description}
+              </p>
             </Card>
           ))}
         </div>
