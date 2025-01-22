@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+buiimport { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const Hero = () => {
@@ -45,7 +45,7 @@ export const Hero = () => {
             Empowering Business with AI Solutions
           </h1>
           <p className="text-xl md:text-2xl text-gray-200 mb-8 animate-fade-up [animation-delay:400ms] hover:text-white transition-colors duration-300">
-            We build boutique AI solutions that transform businesses across Real Estate, Marketing, E-commerce, and Manufacturing.
+            We have a plethora of our custom built Autonomous Agents and a host of compatible services that we use to empower your business. We build for convenience and scale based on requirements. 
           </p>
           <Button
             size="lg"
