@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users, Phone, Blocks } from "lucide-react";
+import { LayoutDashboard, Users, Phone, Blocks, Headphones } from "lucide-react";
 import { useLocation, Link } from "react-router-dom";
 import {
   Sidebar,
@@ -32,6 +32,12 @@ const items = [
     url: "/contact",
     icon: Phone,
   },
+  {
+    title: "Try TranscriptionAlly",
+    url: "https://transcriptionally.com",
+    icon: Headphones,
+    isExternal: true,
+  },
 ];
 
 export function AppSidebar() {
@@ -51,10 +57,17 @@ export function AppSidebar() {
                     isActive={location.pathname === item.url}
                     tooltip={item.title}
                   >
-                    <Link to={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </Link>
+                    {item.isExternal ? (
+                      <a href={item.url} target="_blank" rel="noopener noreferrer">
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </a>
+                    ) : (
+                      <Link to={item.url}>
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </Link>
+                    )}
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
