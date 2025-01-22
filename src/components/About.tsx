@@ -16,6 +16,11 @@ const team = [
     role: "Head of Business Development",
     image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=300&h=300",
   },
+  {
+    name: "Pratirath Gupta",
+    role: "Engineering and Research Lead",
+    image: "https://media.licdn.com/dms/image/v2/D5603AQESdpAkRrsMBA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1709572586633?e=1743033600&v=beta&t=hNwtm1PD-xT2gh3r8a4yoUZdVcmpEH23ryJgmDNyoYE",
+  },
 ];
 
 export const About = () => {
