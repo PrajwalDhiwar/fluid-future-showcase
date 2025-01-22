@@ -22,7 +22,7 @@ export const ContactForm = () => {
     });
 
     // Open Calendly in a new tab
-    window.open("https://calendly.com/YOUR_CALENDLY_USERNAME", "_blank");
+    window.open("https://calendly.com/prajwal-ally", "_blank");
   };
 
   return (
