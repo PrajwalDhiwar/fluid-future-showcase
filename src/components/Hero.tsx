@@ -42,7 +42,7 @@ export const Hero = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-up [animation-delay:200ms] hover:scale-105 transition-transform duration-300">
-            Empowering Business with AI Solutions
+            Smarter Solutions to supercharge your business!
           </h1>
           <p className="text-xl md:text-2xl text-gray-200 mb-8 animate-fade-up [animation-delay:400ms] hover:text-white transition-colors duration-300">
             We have a plethora of our custom built Autonomous Agents and a host of compatible services that we use to empower your business. We build for convenience and scale based on requirements. 
