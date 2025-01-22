@@ -2,18 +2,18 @@ import { Card } from "@/components/ui/card";
 
 const team = [
   {
-    name: "Sarah Johnson",
-    role: "CEO & Founder",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=300&h=300",
+    name: "Prajwal Dhiwar",
+    role: "Co-Founder",
+    image: "https://media.licdn.com/dms/image/v2/D5603AQEcer7AEUM7lQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1676871305751?e=1743033600&v=beta&t=_pywQRJqa4O4T99vpINwUdruV0an-WlYSmxqB6ihIIk",
   },
   {
-    name: "Michael Chen",
-    role: "CTO",
+    name: "Mohit Manglani",
+    role: "Co-Founder",
     image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&w=300&h=300",
   },
   {
-    name: "Emily Rodriguez",
-    role: "Head of AI Solutions",
+    name: "Anson Leslee",
+    role: "Head of Business Development",
     image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=300&h=300",
   },
 ];
