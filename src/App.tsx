@@ -9,6 +9,7 @@ import { AppSidebar } from "./components/AppSidebar";
 import { Services } from "./components/Services";
 import { About } from "./components/About";
 import { ContactForm } from "./components/ContactForm";
+import { Header } from "./components/Header";
 
 const queryClient = new QueryClient();
 
@@ -19,16 +20,19 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <SidebarProvider>
-          <div className="min-h-screen flex w-full">
-            <AppSidebar />
-            <main className="flex-1">
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/team" element={<About />} />
-                <Route path="/contact" element={<ContactForm />} />
-              </Routes>
-            </main>
+          <div className="min-h-screen flex flex-col w-full">
+            <Header />
+            <div className="flex flex-1">
+              <AppSidebar />
+              <main className="flex-1">
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/team" element={<About />} />
+                  <Route path="/contact" element={<ContactForm />} />
+                </Routes>
+              </main>
+            </div>
           </div>
         </SidebarProvider>
       </BrowserRouter>
