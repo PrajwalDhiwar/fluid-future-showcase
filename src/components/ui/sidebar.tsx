@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import Link, { LinkProps } from "next/link";
+import { Link } from "react-router-dom";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconMenu2, IconX } from "@tabler/icons-react";
@@ -17,9 +17,7 @@ interface SidebarContextProps {
   animate: boolean;
 }
 
-const SidebarContext = createContext<SidebarContextProps | undefined>(
-  undefined
-);
+const SidebarContext = createContext<SidebarContextProps | undefined>(undefined);
 
 export const useSidebar = () => {
   const context = useContext(SidebarContext);
@@ -41,12 +39,11 @@ export const SidebarProvider = ({
   animate?: boolean;
 }) => {
   const [openState, setOpenState] = useState(false);
-
   const open = openProp !== undefined ? openProp : openState;
   const setOpen = setOpenProp !== undefined ? setOpenProp : setOpenState;
 
   return (
-    <SidebarContext.Provider value={{ open, setOpen, animate: animate }}>
+    <SidebarContext.Provider value={{ open, setOpen, animate }}>
       {children}
     </SidebarContext.Provider>
   );
@@ -162,20 +159,19 @@ export const SidebarLink = ({
 }: {
   link: Links;
   className?: string;
-  props?: LinkProps;
+  props?: any;
 }) => {
   const { open, animate } = useSidebar();
   return (
     <Link
-      href={link.href}
+      to={link.href}
       className={cn(
-        "flex items-center justify-start gap-2  group/sidebar py-2",
+        "flex items-center justify-start gap-2 group/sidebar py-2",
         className
       )}
       {...props}
     >
       {link.icon}
-
       <motion.span
         animate={{
           display: animate ? (open ? "inline-block" : "none") : "inline-block",
