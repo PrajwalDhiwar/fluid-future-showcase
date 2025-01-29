@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users, Phone, Blocks, Headphones } from "lucide-react";
+import { LayoutDashboard, Users, Phone, Blocks, Headphones, BookOpen } from "lucide-react";
 import { useLocation, Link } from "react-router-dom";
 import {
   Sidebar,
@@ -39,6 +39,11 @@ const items = [
     icon: Headphones,
     isExternal: true,
   },
+  {
+    title: "Try EduAlly",
+    url:"https://edually.com",
+    icon:BookOpen,
+    isExternal:true
 ];
 
 export function AppSidebar() {
