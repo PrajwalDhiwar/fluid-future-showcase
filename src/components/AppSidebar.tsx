@@ -43,7 +43,9 @@ const items = [
     title: "Try EduAlly",
     url:"https://edually.com",
     icon:BookOpen,
-    isExternal:true
+    isExternal:true,
+  },
+    
 ];
 
 export function AppSidebar() {
