@@ -19,7 +19,7 @@ const items = [
 ];
 
 export function AppSidebar() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const location = useLocation();
 
   return (
