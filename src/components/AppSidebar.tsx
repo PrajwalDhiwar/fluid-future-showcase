@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users, Phone, Blocks, Headphones, BookOpen } from "lucide-react";
+import { House, Users, Phone, Blocks, Headphones, BookOpen } from "lucide-react";
 import { useLocation, Link } from "react-router-dom";
 import {
   Sidebar,
@@ -16,7 +16,7 @@ const items = [
   {
     title: "Home",
     url: "/",
-    icon: LayoutDashboard,
+    icon: House,
   },
   {
     title: "Our Services",
@@ -43,7 +43,7 @@ const items = [
     title: "Try EduAlly",
     url: "https://edually.com",
     icon: BookOpen,
-    isExternal: true
+    isExternal: true,
   }
 ];
 
