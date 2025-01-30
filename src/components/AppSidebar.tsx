@@ -1,21 +1,36 @@
 import { useState } from "react";
-import { House, Users, Phone, Blocks, Headphones, BookOpen } from "lucide-react";
+import { House, Users, Phone, Blocks } from "lucide-react";
 import { useLocation, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Sidebar,
-  SidebarBody,
-  SidebarLink
-} from "@/components/ui/sidebar"; // Ensure these are React Router compatible
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+} from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 
 const items = [
   {
     title: "Home",
     url: "/",
-    icon: <House className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+    icon: <House className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
   },
-  // ... rest of the items array
+  {
+    title: "Services",
+    url: "/services",
+    icon: <Blocks className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+  },
+  {
+    title: "Team",
+    url: "/team",
+    icon: <Users className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+  },
+  {
+    title: "Contact",
+    url: "/contact",
+    icon: <Phone className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+  }
 ];
 
 export function AppSidebar() {
@@ -23,41 +38,32 @@ export function AppSidebar() {
   const location = useLocation();
 
   return (
-    <Sidebar open={open} setOpen={setOpen} variant="floating">
-      <SidebarBody className="justify-between gap-10">
-        <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-          {open ? <Logo /> : <LogoIcon />}
-          <div className="mt-8 flex flex-col gap-2">
-            {items.map((item) => (
-              item.isExternal ? (
-                <a
-                  key={item.title}
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors"
-                >
-                  {item.icon}
-                  {open && <span>{item.title}</span>}
-                </a>
-              ) : (
-                <Link
-                  key={item.title}
-                  to={item.url}
-                  className={cn(
-                    "flex items-center gap-3 px-3 py-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors",
-                    location.pathname === item.url && "bg-neutral-100 dark:bg-neutral-700",
-                    !open && "justify-center"
-                  )}
-                >
-                  {item.icon}
-                  {open && <span>{item.title}</span>}
-                </Link>
-              )
-            ))}
-          </div>
-        </div>
-      </SidebarBody>
+    <Sidebar variant="floating">
+      <SidebarContent className="justify-between gap-10">
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+              {open ? <Logo /> : <LogoIcon />}
+              <div className="mt-8 flex flex-col gap-2">
+                {items.map((item) => (
+                  <Link
+                    key={item.title}
+                    to={item.url}
+                    className={cn(
+                      "flex items-center gap-3 px-3 py-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors",
+                      location.pathname === item.url && "bg-neutral-100 dark:bg-neutral-700",
+                      !open && "justify-center"
+                    )}
+                  >
+                    {item.icon}
+                    {open && <span>{item.title}</span>}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
     </Sidebar>
   );
 }
