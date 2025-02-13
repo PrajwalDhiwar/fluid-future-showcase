@@ -59,47 +59,57 @@ export function AppSidebar() {
       >
         <Menu className="h-5 w-5 text-white" />
       </button>
-      <div className={cn(
-        "fixed inset-y-0 left-0 z-40 transition-all duration-300 w-[280px]",
-        !open && "-translate-x-full w-0",
-        open && "border-r border-[#7E69AB]"
-      )}>
-        <Sidebar variant="floating" className="bg-[#9b87f5]">
-          <SidebarContent 
-            className={cn(
-              "justify-between gap-10",
-              "transition-all duration-300",
-              !open && "opacity-0 pointer-events-none",
-              isMobile && open && "w-full max-w-[280px]"
-            )}
-          >
-            <SidebarGroup>
-              <SidebarGroupContent>
-                <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-                  {open ? <Logo /> : <LogoIcon />}
-                  <div className="mt-8 flex flex-col gap-2">
-                    {items.map((item) => (
-                      <Link
-                        key={item.title}
-                        to={item.url}
-                        className={cn(
-                          "flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#7E69AB] transition-colors",
-                          location.pathname === item.url && "bg-[#7E69AB]",
-                          !open && "justify-center",
-                          "text-white font-semibold"
-                        )}
-                        onClick={() => isMobile && setOpen(false)}
-                      >
-                        {item.icon}
-                        {open && <span>{item.title}</span>}
-                      </Link>
-                    ))}
+      <div 
+        className={cn(
+          "fixed inset-y-0 left-0 z-40 transition-transform duration-300",
+          !open && "-translate-x-full"
+        )}
+        style={{
+          width: open ? '280px' : '0',
+          overflow: 'hidden'
+        }}
+      >
+        <div className={cn(
+          "h-full border-r border-[#7E69AB]",
+          !open && "opacity-0"
+        )}>
+          <Sidebar variant="floating" className="bg-[#9b87f5]">
+            <SidebarContent 
+              className={cn(
+                "justify-between gap-10",
+                "transition-all duration-300",
+                !open && "opacity-0 pointer-events-none",
+                isMobile && open && "w-full max-w-[280px]"
+              )}
+            >
+              <SidebarGroup>
+                <SidebarGroupContent>
+                  <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+                    {open ? <Logo /> : <LogoIcon />}
+                    <div className="mt-8 flex flex-col gap-2">
+                      {items.map((item) => (
+                        <Link
+                          key={item.title}
+                          to={item.url}
+                          className={cn(
+                            "flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#7E69AB] transition-colors",
+                            location.pathname === item.url && "bg-[#7E69AB]",
+                            !open && "justify-center",
+                            "text-white font-semibold"
+                          )}
+                          onClick={() => isMobile && setOpen(false)}
+                        >
+                          {item.icon}
+                          {open && <span>{item.title}</span>}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          </SidebarContent>
-        </Sidebar>
+                </SidebarGroupContent>
+              </SidebarGroup>
+            </SidebarContent>
+          </Sidebar>
+        </div>
       </div>
     </>
   );
