@@ -39,8 +39,10 @@ const projects = [
 const clients = [
   { name: "Prestige", logo: "/prestige.png" },
   { name: "Groq", logo: "/groq.png" },
-  { name: "Meta", logo: "/meta-logo-300x289.png" },
   { name: "Crew AI", logo: "/crewai.png" },
+  { name:"Supabase", logo: "/Supabase.webp"},
+  { name:"Discord", logo: "/Discord.png"}
+
 ];
 
 export const OurWork = () => {
