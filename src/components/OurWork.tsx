@@ -66,7 +66,7 @@ export const OurWork = () => {
 
         {/* Client Logo Carousel */}
         <div className="mt-8 sm:mt-12 lg:mt-20 animate-fade-up">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 text-center">Our Clients</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 text-center">Our Partners</h2>
           <div className="mx-auto max-w-5xl relative">
             <Carousel
               opts={{
