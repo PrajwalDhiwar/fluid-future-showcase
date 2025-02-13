@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
-import { Upload, FileText, Trash2 } from "lucide-react";
+import { Upload, FileText, Trash2, Info } from "lucide-react";
 
 type Message = {
   role: 'user' | 'assistant';
@@ -111,6 +111,19 @@ export const ChatAssistant = () => {
         <h1 className="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-8 animate-fade-up">
           AI Chat Assistant
         </h1>
+        
+        <div className="mb-6 bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 text-blue-100 flex items-start gap-3">
+          <Info className="w-5 h-5 mt-1 flex-shrink-0" />
+          <div className="text-sm">
+            <p className="mb-2">
+              This demo allows you to upload and query your documents using our AI assistant. You can upload PDF, DOCX, or TXT files to test the functionality.
+            </p>
+            <p>
+              In a production environment, we would integrate with your proprietary data sources and use a customized Language Model specifically trained for your business needs and security requirements.
+            </p>
+          </div>
+        </div>
+
         <Card className="p-4 sm:p-6 bg-white/5 backdrop-blur-lg border-white/10">
           <div className="mb-4">
             <div className="flex items-center gap-4 mb-4">
