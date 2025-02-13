@@ -1,6 +1,5 @@
-
 import { useState, useEffect } from "react";
-import { House, Users, Phone, Blocks, SquareChevronLeft, SquareChevronRight } from "lucide-react";
+import { House, Users, Phone, Blocks, SquareChevronRight } from "lucide-react";
 import { useLocation, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -39,30 +38,33 @@ export function AppSidebar() {
   const [open, setOpen] = useState(true);
   const location = useLocation();
   const isMobile = useIsMobile();
+  const [manualToggle, setManualToggle] = useState(false); // Track user toggle
 
   useEffect(() => {
-    if (isMobile) {
+    if (isMobile && !manualToggle) {
       setOpen(false);
-    } else {
+    } else if (!isMobile) {
       setOpen(true);
     }
-  }, [isMobile]);
+  }, [isMobile, manualToggle]); // Include manualToggle in dependencies
 
   return (
     <>
+      {/* Sidebar Toggle Button */}
       <button
-        onClick={() => setOpen(!open)}
+        onClick={() => {
+          setOpen(!open);
+          setManualToggle(true); // Mark user toggle
+        }}
         className={cn(
-          "fixed top-4 z-[60] p-2 rounded-md bg-[#9b87f5] hover:bg-[#7E69AB] transition-all",
-          open ? "left-[270px]" : "left-4"
+          "fixed top-4 left-4 z-[60] p-2 rounded-md bg-[#9b87f5] hover:bg-[#7E69AB] transition-all",
+          open && "left-[270px]"
         )}
       >
-        {open ? (
-          <SquareChevronLeft className="h-5 w-5 text-white" />
-        ) : (
-          <SquareChevronRight className="h-5 w-5 text-white" />
-        )}
+        <SquareChevronRight className="h-5 w-5 text-white" />
       </button>
+
+      {/* Sidebar */}
       <div 
         className={cn(
           "fixed inset-y-0 left-0 z-[50] transition-transform duration-300",
@@ -77,10 +79,9 @@ export function AppSidebar() {
           <Sidebar variant="floating" className="bg-[#9b87f5]">
             <SidebarContent 
               className={cn(
-                "justify-between gap-10",
-                "transition-all duration-300",
+                "justify-between gap-10 transition-all duration-300",
                 !open && "opacity-0 pointer-events-none",
-                isMobile && "w-full max-w-[280px]"
+                isMobile && open && "w-full max-w-[280px]"
               )}
             >
               <SidebarGroup>
@@ -98,7 +99,9 @@ export function AppSidebar() {
                             !open && "justify-center",
                             "text-white font-semibold"
                           )}
-                          onClick={() => isMobile && setOpen(false)}
+                          onClick={() => {
+                            if (isMobile) setOpen(false); // Close only on mobile
+                          }}
                         >
                           {item.icon}
                           {open && <span>{item.title}</span>}
