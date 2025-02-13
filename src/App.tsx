@@ -11,6 +11,7 @@ import { Services } from "./components/Services";
 import { About } from "./components/About";
 import { ContactForm } from "./components/ContactForm";
 import { OurWork } from "./components/OurWork";
+import { ChatAssistant } from "./components/ChatAssistant";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
                 <Route path="/" element={<Index />} />
                 <Route path="/services" element={<Services />} />
                 <Route path="/work" element={<OurWork />} />
+                <Route path="/chat" element={<ChatAssistant />} />
                 <Route path="/team" element={<About />} />
                 <Route path="/contact" element={<ContactForm />} />
               </Routes>
