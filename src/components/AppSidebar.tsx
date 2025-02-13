@@ -16,22 +16,22 @@ const items = [
   {
     title: "Home",
     url: "/",
-    icon: <House className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+    icon: <House className="text-white h-5 w-5 flex-shrink-0" />
   },
   {
     title: "Services",
     url: "/services",
-    icon: <Blocks className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+    icon: <Blocks className="text-white h-5 w-5 flex-shrink-0" />
   },
   {
     title: "Team",
     url: "/team",
-    icon: <Users className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+    icon: <Users className="text-white h-5 w-5 flex-shrink-0" />
   },
   {
     title: "Contact",
     url: "/contact",
-    icon: <Phone className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+    icon: <Phone className="text-white h-5 w-5 flex-shrink-0" />
   }
 ];
 
@@ -53,17 +53,18 @@ export function AppSidebar() {
       <button
         onClick={() => setOpen(!open)}
         className={cn(
-          "fixed top-4 left-4 z-50 p-2 rounded-md bg-white dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-all",
+          "fixed top-4 left-4 z-50 p-2 rounded-md bg-[#9b87f5] hover:bg-[#7E69AB] transition-all",
           open && "left-[270px]"
         )}
       >
-        <Menu className="h-5 w-5 text-neutral-700 dark:text-neutral-200" />
+        <Menu className="h-5 w-5 text-white" />
       </button>
       <div className={cn(
         "fixed inset-y-0 left-0 z-40 transition-all duration-300 w-[280px]",
-        !open && "-translate-x-full w-0"
+        !open && "-translate-x-full w-0",
+        open && "border-r border-[#7E69AB]"
       )}>
-        <Sidebar variant="floating">
+        <Sidebar variant="floating" className="bg-[#9b87f5]">
           <SidebarContent 
             className={cn(
               "justify-between gap-10",
@@ -82,9 +83,10 @@ export function AppSidebar() {
                         key={item.title}
                         to={item.url}
                         className={cn(
-                          "flex items-center gap-3 px-3 py-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors",
-                          location.pathname === item.url && "bg-neutral-100 dark:bg-neutral-700",
-                          !open && "justify-center"
+                          "flex items-center gap-3 px-3 py-2 rounded-md hover:bg-[#7E69AB] transition-colors",
+                          location.pathname === item.url && "bg-[#7E69AB]",
+                          !open && "justify-center",
+                          "text-white font-semibold"
                         )}
                         onClick={() => isMobile && setOpen(false)}
                       >
@@ -106,13 +108,13 @@ export function AppSidebar() {
 const Logo = () => (
   <Link
     to="/"
-    className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+    className="font-bold flex space-x-2 items-center text-sm text-white py-1 relative z-20"
   >
-    <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+    <div className="h-5 w-6 bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
     <motion.span
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="font-medium text-black dark:text-white whitespace-pre"
+      className="font-bold text-white whitespace-pre"
     >
       Automation Ally
     </motion.span>
@@ -122,8 +124,8 @@ const Logo = () => (
 const LogoIcon = () => (
   <Link
     to="/"
-    className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+    className="font-bold flex space-x-2 items-center text-sm text-white py-1 relative z-20"
   >
-    <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+    <div className="h-5 w-6 bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
   </Link>
 );
