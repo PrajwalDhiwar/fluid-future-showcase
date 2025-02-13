@@ -37,9 +37,9 @@ const projects = [
 ];
 
 const clients = [
-  { name: "Prestige", logo: "/prestige.svg" },
+  { name: "Prestige", logo: "/prestige.png" },
   { name: "Groq", logo: "/groq.png" },
-  { name: "Future Systems", logo: "/meta-logo-300x289.svg" },
+  { name: "eta", logo: "/meta-logo-300x289.png" },
   { name: "Crew AI", logo: "/crewai.png" },
 ];
 
