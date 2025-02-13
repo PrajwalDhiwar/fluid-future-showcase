@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { House, Users, Phone, Blocks, SquareChevronLeft, SquareChevronRight, Briefcase, MessageCircle } from "lucide-react";
 import { useLocation, Link } from "react-router-dom";
@@ -9,7 +10,6 @@ import {
   SidebarGroupContent,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 const items = [
   {
@@ -47,25 +47,12 @@ const items = [
 export function AppSidebar() {
   const [open, setOpen] = useState(true);
   const location = useLocation();
-  const isMobile = useIsMobile();
-  const [manualToggle, setManualToggle] = useState(false); // Track user toggle
-
-  useEffect(() => {
-    if (isMobile && !manualToggle) {
-      setOpen(false);
-    } else if (!isMobile) {
-      setOpen(true);
-    }
-  }, [isMobile, manualToggle]); // Include manualToggle in dependencies
 
   return (
     <>
       {/* Sidebar Toggle Button */}
       <button
-        onClick={() => {
-          setOpen(!open);
-          setManualToggle(true); // Mark user toggle
-        }}
+        onClick={() => setOpen(!open)}
         className={cn(
           "fixed top-4 left-4 z-[60] p-2 rounded-md bg-[#9b87f5] hover:bg-[#7E69AB] transition-all",
           open && "left-[270px]"
@@ -90,8 +77,7 @@ export function AppSidebar() {
             <SidebarContent 
               className={cn(
                 "justify-between gap-10 transition-all duration-300",
-                !open && "opacity-0 pointer-events-none",
-                isMobile && open && "w-full max-w-[280px]"
+                !open && "opacity-0 pointer-events-none"
               )}
             >
               <SidebarGroup>
@@ -109,9 +95,7 @@ export function AppSidebar() {
                             !open && "justify-center",
                             "text-white font-semibold"
                           )}
-                          onClick={() => {
-                            if (isMobile) setOpen(false); // Close only on mobile
-                          }}
+                          onClick={() => setOpen(false)} // Close sidebar when clicking an item
                         >
                           {item.icon}
                           {open && <span>{item.title}</span>}
