@@ -41,7 +41,8 @@ const clients = [
   { name: "Groq", logo: "/groq.png" },
   { name: "Crew AI", logo: "/crewai.png" },
   { name:"Supabase", logo: "/Supabase.webp"},
-  { name:"Discord", logo: "/Discord.png"}
+  { name:"Discord", logo: "/Discord.png"},
+  { name:"Zapier", logo:"/Zapier.png"}
 
 ];
 
