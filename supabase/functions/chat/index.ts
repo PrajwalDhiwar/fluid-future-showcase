@@ -1,7 +1,6 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1'
-import { Groq } from 'https://esm.sh/@arddluma/groq-sdk@0.1.0'
+import { GroqChat } from "npm:@groq/groq-sdk"
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -16,11 +15,11 @@ serve(async (req) => {
   try {
     const { messages } = await req.json()
 
-    const groq = new Groq({
+    const client = new GroqChat({
       apiKey: Deno.env.get('GROQ_API_KEY')
     })
 
-    const chatCompletion = await groq.chat.completions.create({
+    const chatCompletion = await client.chat.completions.create({
       messages,
       model: "mixtral-8x7b-32768",
       temperature: 0.5,
