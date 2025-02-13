@@ -53,8 +53,8 @@ export function AppSidebar() {
       <button
         onClick={() => setOpen(!open)}
         className={cn(
-          "fixed top-4 left-4 z-[60] p-2 rounded-md bg-[#9b87f5] hover:bg-[#7E69AB] transition-all",
-          open && "left-[270px]"
+          "fixed top-4 z-[60] p-2 rounded-md bg-[#9b87f5] hover:bg-[#7E69AB] transition-all",
+          open ? "left-[270px]" : "left-4"
         )}
       >
         {open ? (
@@ -80,7 +80,7 @@ export function AppSidebar() {
                 "justify-between gap-10",
                 "transition-all duration-300",
                 !open && "opacity-0 pointer-events-none",
-                isMobile && open && "w-full max-w-[280px]"
+                isMobile && "w-full max-w-[280px]"
               )}
             >
               <SidebarGroup>
@@ -98,7 +98,7 @@ export function AppSidebar() {
                             !open && "justify-center",
                             "text-white font-semibold"
                           )}
-                          onClick={() => setOpen(false)}
+                          onClick={() => isMobile && setOpen(false)}
                         >
                           {item.icon}
                           {open && <span>{item.title}</span>}
