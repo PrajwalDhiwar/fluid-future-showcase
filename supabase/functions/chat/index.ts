@@ -45,7 +45,7 @@ serve(async (req) => {
       }`
     }
 
-    const response = await fetch('https://api.groq.com/v1/chat/completions', {
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${Deno.env.get('GROQ_API_KEY')}`,
@@ -53,7 +53,7 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         messages: [systemMessage, ...messages],
-        model: "llama-3.1-8b-instant",
+        model: "llama2-70b-4096",
         temperature: 0.5,
         max_tokens: 1024,
       }),
