@@ -47,39 +47,39 @@ const clients = [
 
 export const OurWork = () => {
   return (
-    <div className="min-h-screen bg-brand-dark py-20">
-      <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold text-white mb-8 animate-fade-up">Our Work</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+    <div className="min-h-screen bg-brand-dark py-8 sm:py-12 md:py-20 overflow-x-hidden">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 className="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-8 animate-fade-up">Our Work</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12 lg:mb-16">
           {projects.map((project, index) => (
             <Card
               key={project.title}
-              className="p-6 bg-white/5 backdrop-blur-lg border-white/10 hover:bg-white/10 transition-all duration-500 animate-fade-up"
+              className="p-4 sm:p-6 bg-white/5 backdrop-blur-lg border-white/10 hover:bg-white/10 transition-all duration-500 animate-fade-up"
               style={{ animationDelay: `${index * 200}ms` }}
             >
-              <div className="flex items-center gap-4 mb-4">
-                <project.icon className={`h-8 w-8 ${project.color}`} />
-                <h3 className="text-xl font-semibold text-white">{project.title}</h3>
+              <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                <project.icon className={`h-6 w-6 sm:h-8 sm:w-8 ${project.color}`} />
+                <h3 className="text-lg sm:text-xl font-semibold text-white">{project.title}</h3>
               </div>
-              <p className="text-gray-300">{project.description}</p>
+              <p className="text-sm sm:text-base text-gray-300">{project.description}</p>
             </Card>
           ))}
         </div>
 
         {/* Chat Assistant Preview Section */}
-        <div className="mt-16 mb-16 animate-fade-up">
-          <h2 className="text-3xl font-bold text-white mb-8">Try Our Chat Assistant</h2>
-          <Card className="p-6 bg-white/5 backdrop-blur-lg border-white/10">
-            <div className="h-[400px] flex items-center justify-center text-gray-400">
+        <div className="mt-8 sm:mt-12 lg:mt-16 mb-8 sm:mb-12 lg:mb-16 animate-fade-up">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8">Try Our Chat Assistant</h2>
+          <Card className="p-4 sm:p-6 bg-white/5 backdrop-blur-lg border-white/10">
+            <div className="h-[300px] sm:h-[400px] flex items-center justify-center text-gray-400">
               Chat Assistant Coming Soon...
             </div>
           </Card>
         </div>
 
         {/* Client Logo Carousel */}
-        <div className="mt-20 animate-fade-up">
-          <h2 className="text-3xl font-bold text-white mb-8 text-center">Our Clients</h2>
-          <div className="mx-auto max-w-5xl">
+        <div className="mt-8 sm:mt-12 lg:mt-20 animate-fade-up">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 text-center">Our Clients</h2>
+          <div className="mx-auto max-w-5xl relative">
             <Carousel
               opts={{
                 align: "start",
@@ -87,26 +87,26 @@ export const OurWork = () => {
               }}
               className="w-full"
             >
-              <CarouselContent className="-ml-2 md:-ml-4">
+              <CarouselContent className="-ml-2 sm:-ml-4">
                 {clients.map((client, index) => (
-                  <CarouselItem key={index} className="pl-2 md:pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4">
-                    <div className="p-4">
-                      <Card className="p-6 bg-white/5 backdrop-blur-lg border-white/10 hover:bg-white/10 transition-all duration-300">
+                  <CarouselItem key={index} className="pl-2 sm:pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4">
+                    <div className="p-2 sm:p-4">
+                      <Card className="p-3 sm:p-6 bg-white/5 backdrop-blur-lg border-white/10 hover:bg-white/10 transition-all duration-300">
                         <div className="aspect-square relative flex items-center justify-center">
                           <img
                             src={client.logo}
                             alt={`${client.name} logo`}
-                            className="object-contain w-24 h-24 opacity-70 hover:opacity-100 transition-opacity"
+                            className="object-contain w-16 h-16 sm:w-24 sm:h-24 opacity-70 hover:opacity-100 transition-opacity"
                           />
                         </div>
-                        <p className="text-center text-sm text-gray-400 mt-2">{client.name}</p>
+                        <p className="text-center text-xs sm:text-sm text-gray-400 mt-2">{client.name}</p>
                       </Card>
                     </div>
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className="hidden md:flex" />
-              <CarouselNext className="hidden md:flex" />
+              <CarouselPrevious className="hidden md:flex absolute -left-12 top-1/2 transform -translate-y-1/2" />
+              <CarouselNext className="hidden md:flex absolute -right-12 top-1/2 transform -translate-y-1/2" />
             </Carousel>
           </div>
         </div>
