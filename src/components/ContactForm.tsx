@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -6,23 +7,58 @@ import { useState } from "react";
 
 export const ContactForm = () => {
   const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the form data to your backend
-    // For now, we'll just show a success message and open Calendly
-    toast({
-      title: "Thanks for reaching out!",
-      description: "We'll redirect you to schedule a meeting.",
-    });
+    setIsLoading(true);
 
-    // Open Calendly in a new tab
-    window.open("https://calendly.com/prajwal-ally", "_blank");
+    try {
+      // Replace this URL with your Zapier webhook URL
+      const webhookUrl = "YOUR_ZAPIER_WEBHOOK_URL";
+      
+      const response = await fetch(webhookUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "no-cors", // Required for Zapier webhooks
+        body: JSON.stringify({
+          ...formData,
+          timestamp: new Date().toISOString(),
+        }),
+      });
+
+      // Clear form
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
+
+      // Show success message
+      toast({
+        title: "Thanks for reaching out!",
+        description: "We'll get back to you soon. Check your email for confirmation.",
+      });
+
+      // Open Calendly in a new tab
+      window.open("https://calendly.com/prajwal-ally", "_blank");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Error",
+        description: "There was a problem submitting your message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -70,12 +106,13 @@ export const ContactForm = () => {
             <Button
               type="submit"
               className="w-full bg-brand-purple hover:bg-brand-purple/90"
+              disabled={isLoading}
             >
-              Schedule a Meeting
+              {isLoading ? "Sending..." : "Schedule a Meeting"}
             </Button>
           </form>
         </div>
       </div>
     </section>
   );
-}
+};
