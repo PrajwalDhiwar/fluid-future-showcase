@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { House, Users, Phone, Blocks, Menu } from "lucide-react";
+import { House, Users, Phone, Blocks, SquareChevronRight } from "lucide-react";
 import { useLocation, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -57,7 +57,7 @@ export function AppSidebar() {
           open && "left-[270px]"
         )}
       >
-        <Menu className="h-5 w-5 text-white" />
+        <SquareChevronRight className="h-5 w-5 text-white" />
       </button>
       <div 
         className={cn(
