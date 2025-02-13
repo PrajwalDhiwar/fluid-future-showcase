@@ -66,16 +66,6 @@ export const OurWork = () => {
           ))}
         </div>
 
-        {/* Chat Assistant Preview Section */}
-        <div className="mt-8 sm:mt-12 lg:mt-16 mb-8 sm:mb-12 lg:mb-16 animate-fade-up">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8">Try Our Chat Assistant</h2>
-          <Card className="p-4 sm:p-6 bg-white/5 backdrop-blur-lg border-white/10">
-            <div className="h-[300px] sm:h-[400px] flex items-center justify-center text-gray-400">
-              Chat Assistant Coming Soon...
-            </div>
-          </Card>
-        </div>
-
         {/* Client Logo Carousel */}
         <div className="mt-8 sm:mt-12 lg:mt-20 animate-fade-up">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 text-center">Our Clients</h2>
