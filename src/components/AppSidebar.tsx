@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { House, Users, Phone, Blocks, Menu } from "lucide-react";
 import { useLocation, Link } from "react-router-dom";
@@ -53,7 +52,7 @@ export function AppSidebar() {
       <button
         onClick={() => setOpen(!open)}
         className={cn(
-          "fixed top-4 left-4 z-50 p-2 rounded-md bg-[#9b87f5] hover:bg-[#7E69AB] transition-all",
+          "fixed top-4 left-4 z-[60] p-2 rounded-md bg-[#9b87f5] hover:bg-[#7E69AB] transition-all",
           open && "left-[270px]"
         )}
       >
@@ -61,7 +60,7 @@ export function AppSidebar() {
       </button>
       <div 
         className={cn(
-          "fixed inset-y-0 left-0 z-40 transition-transform duration-300",
+          "fixed inset-y-0 left-0 z-[50] transition-transform duration-300",
           !open && "-translate-x-full"
         )}
         style={{
@@ -69,10 +68,7 @@ export function AppSidebar() {
           overflow: 'hidden'
         }}
       >
-        <div className={cn(
-          "h-full border-r border-[#7E69AB]",
-          !open && "opacity-0"
-        )}>
+        <div className="h-full">
           <Sidebar variant="floating" className="bg-[#9b87f5]">
             <SidebarContent 
               className={cn(
