@@ -1,6 +1,6 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
-import { GroqChat } from "npm:@groq/groq-sdk"
+import { GroqChat } from "npm:@groq/sdk"
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
