@@ -37,12 +37,10 @@ const projects = [
 ];
 
 const clients = [
-  { name: "TechCorp", logo: "/placeholder.svg" },
-  { name: "AI Solutions", logo: "/placeholder.svg" },
-  { name: "Future Systems", logo: "/placeholder.svg" },
-  { name: "Neural Networks Inc", logo: "/placeholder.svg" },
-  { name: "DataFlow", logo: "/placeholder.svg" },
-  { name: "Smart Analytics", logo: "/placeholder.svg" },
+  { name: "Prestige", logo: "/prestige.svg" },
+  { name: "Groq", logo: "/groq.png" },
+  { name: "Future Systems", logo: "/meta-logo-300x289.svg" },
+  { name: "Crew AI", logo: "/crewai.png" },
 ];
 
 export const OurWork = () => {
