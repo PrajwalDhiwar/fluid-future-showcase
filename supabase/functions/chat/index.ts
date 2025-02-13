@@ -1,6 +1,5 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
-import { GroqChat } from "npm:@groq/sdk"
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -15,19 +14,28 @@ serve(async (req) => {
   try {
     const { messages } = await req.json()
 
-    const client = new GroqChat({
-      apiKey: Deno.env.get('GROQ_API_KEY')
+    const response = await fetch('https://api.groq.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${Deno.env.get('GROQ_API_KEY')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        messages,
+        model: "mixtral-8x7b-32768",
+        temperature: 0.5,
+        max_tokens: 1024,
+      }),
     })
 
-    const chatCompletion = await client.chat.completions.create({
-      messages,
-      model: "mixtral-8x7b-32768",
-      temperature: 0.5,
-      max_tokens: 1024,
-    })
+    if (!response.ok) {
+      throw new Error(`Groq API error: ${response.status}`)
+    }
+
+    const data = await response.json()
 
     return new Response(
-      JSON.stringify({ response: chatCompletion.choices[0].message }),
+      JSON.stringify({ response: data.choices[0].message }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 200 
