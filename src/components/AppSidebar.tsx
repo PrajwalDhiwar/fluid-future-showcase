@@ -53,17 +53,17 @@ export function AppSidebar() {
       <button
         onClick={() => setOpen(!open)}
         className={cn(
-          "fixed top-4 left-4 z-50 p-2 rounded-md bg-white dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-all",
+          "fixed top-4 left-4 z-[100] p-2 rounded-md bg-white dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-all",
           open && "left-[270px]"
         )}
       >
         <Menu className="h-5 w-5 text-neutral-700 dark:text-neutral-200" />
       </button>
       <div className={cn(
-        "fixed inset-y-0 left-0 z-40 transition-all duration-300 w-[280px]",
+        "fixed inset-y-0 left-0 z-[90] transition-all duration-300 w-[280px]",
         !open && "-translate-x-full w-0"
       )}>
-        <Sidebar variant="floating">
+        <Sidebar variant="floating" className="bg-white dark:bg-neutral-800 border-r border-neutral-200 dark:border-neutral-700">
           <SidebarContent 
             className={cn(
               "justify-between gap-10",
