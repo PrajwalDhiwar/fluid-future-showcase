@@ -53,14 +53,15 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         messages: [systemMessage, ...messages],
-        model: "llama2-70b-4096",
+        model: "mixtral-8x7b-32768",
         temperature: 0.5,
         max_tokens: 1024,
       }),
     })
 
     if (!response.ok) {
-      throw new Error(`Groq API error: ${response.status}`)
+      const responseData = await response.json().catch(() => ({}));
+      throw new Error(`Groq API error: ${response.status}. ${JSON.stringify(responseData)}`);
     }
 
     const data = await response.json()
