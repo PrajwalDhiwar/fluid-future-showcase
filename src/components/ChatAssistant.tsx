@@ -35,11 +35,11 @@ export const ChatAssistant = () => {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    const allowedTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain'];
+    const allowedTypes = ['text/plain'];
     if (!allowedTypes.includes(file.type)) {
       toast({
         title: "Error",
-        description: "Only PDF, DOCX, and TXT files are allowed.",
+        description: "Only TXT files are allowed.",
         variant: "destructive",
       });
       return;
@@ -60,13 +60,13 @@ export const ChatAssistant = () => {
       
       toast({
         title: "Success",
-        description: "File uploaded successfully",
+        description: "File uploaded and processed successfully",
       });
     } catch (error) {
       console.error('Error:', error);
       toast({
         title: "Error",
-        description: "Failed to upload file. Please try again.",
+        description: "Failed to process file. Please try again.",
         variant: "destructive",
       });
     }
@@ -116,10 +116,10 @@ export const ChatAssistant = () => {
           <Info className="w-5 h-5 mt-1 flex-shrink-0" />
           <div className="text-sm">
             <p className="mb-2">
-              This demo allows you to upload and query your documents using our AI assistant. You can upload PDF, DOCX, or TXT files to test the functionality.
+              Upload TXT files to provide context for the AI assistant. The assistant will use the content of these files to provide more relevant and accurate responses.
             </p>
             <p>
-              In a production environment, we would integrate with your proprietary data sources and use a customized Language Model specifically trained for your business needs and security requirements.
+              You can ask questions about the uploaded documents, and the AI will reference their content in its responses.
             </p>
           </div>
         </div>
@@ -129,7 +129,7 @@ export const ChatAssistant = () => {
             <div className="flex items-center gap-4 mb-4">
               <Input
                 type="file"
-                accept=".pdf,.docx,.txt"
+                accept=".txt"
                 onChange={handleFileUpload}
                 className="hidden"
                 id="file-upload"
@@ -190,7 +190,7 @@ export const ChatAssistant = () => {
                 <Textarea
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Type your message..."
+                  placeholder="Ask a question about your documents..."
                   className="flex-1 bg-white/5 border-white/10 text-white"
                   rows={1}
                 />

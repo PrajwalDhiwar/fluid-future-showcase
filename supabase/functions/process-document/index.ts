@@ -27,38 +27,32 @@ serve(async (req) => {
     )
 
     const fileExt = file.name.split('.').pop()?.toLowerCase()
-    const allowedTypes = ['pdf', 'docx', 'txt']
+    const allowedTypes = ['txt']
     
     if (!fileExt || !allowedTypes.includes(fileExt)) {
-      throw new Error('Invalid file type. Only PDF, DOCX, and TXT files are allowed.')
+      throw new Error('Invalid file type. Only TXT files are allowed.')
     }
 
+    // Extract text content from the file
+    const text = await file.text()
     const fileName = `${crypto.randomUUID()}.${fileExt}`
     const filePath = `${sessionId}/${fileName}`
 
     // Upload file to storage
-    const { data: uploadData, error: uploadError } = await supabase.storage
+    const { error: uploadError } = await supabase.storage
       .from('temp_files')
       .upload(filePath, file)
 
     if (uploadError) throw uploadError
 
-    // Extract text content (simplified for now, just for TXT files)
-    let content = ''
-    if (fileExt === 'txt') {
-      const text = await file.text()
-      content = text
-    }
-    // For PDF and DOCX we'll need to implement proper text extraction later
-
-    // Store file metadata
+    // Store file metadata and content in the database
     const { error: dbError } = await supabase
       .from('temp_files')
       .insert({
         filename: file.name,
         file_path: filePath,
+        content: text,
         content_type: file.type,
-        content,
         session_id: sessionId
       })
 
@@ -73,6 +67,7 @@ serve(async (req) => {
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     )
   } catch (error) {
+    console.error('Error:', error)
     return new Response(
       JSON.stringify({ error: error.message }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
