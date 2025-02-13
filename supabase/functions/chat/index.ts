@@ -53,7 +53,7 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         messages: [systemMessage, ...messages],
-        model: "mixtral-8x7b-32768",
+        model: "llama-3.1-8b-instant",
         temperature: 0.5,
         max_tokens: 1024,
       }),
