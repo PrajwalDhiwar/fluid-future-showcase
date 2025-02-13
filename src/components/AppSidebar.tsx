@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { House, Users, Phone, Blocks } from "lucide-react";
 import { useLocation, Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -9,6 +9,7 @@ import {
   SidebarGroupContent,
 } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const items = [
   {
@@ -36,10 +37,25 @@ const items = [
 export function AppSidebar() {
   const [open, setOpen] = useState(true);
   const location = useLocation();
+  const isMobile = useIsMobile();
+
+  useEffect(() => {
+    if (isMobile) {
+      setOpen(false);
+    } else {
+      setOpen(true);
+    }
+  }, [isMobile]);
 
   return (
     <Sidebar variant="floating">
-      <SidebarContent className="justify-between gap-10">
+      <SidebarContent 
+        className={cn(
+          "justify-between gap-10",
+          isMobile && !open && "opacity-0 pointer-events-none",
+          isMobile && open && "w-full max-w-[280px]"
+        )}
+      >
         <SidebarGroup>
           <SidebarGroupContent>
             <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
@@ -54,6 +70,7 @@ export function AppSidebar() {
                       location.pathname === item.url && "bg-neutral-100 dark:bg-neutral-700",
                       !open && "justify-center"
                     )}
+                    onClick={() => isMobile && setOpen(false)}
                   >
                     {item.icon}
                     {open && <span>{item.title}</span>}
@@ -68,7 +85,6 @@ export function AppSidebar() {
   );
 }
 
-// Logo components using React Router's Link
 const Logo = () => (
   <Link
     to="/"
