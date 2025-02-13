@@ -39,7 +39,7 @@ const projects = [
 const clients = [
   { name: "Prestige", logo: "/prestige.png" },
   { name: "Groq", logo: "/groq.png" },
-  { name: "eta", logo: "/meta-logo-300x289.png" },
+  { name: "Meta", logo: "/meta-logo-300x289.png" },
   { name: "Crew AI", logo: "/crewai.png" },
 ];
 
