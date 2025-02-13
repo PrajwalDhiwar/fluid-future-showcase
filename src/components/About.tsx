@@ -14,7 +14,7 @@ const team = [
   {
     name: "Anson Leslee",
     role: "Head of Business Development",
-    image: "https://ibb.co/ns5DDtcD",
+    image: "https://i.ibb.co/tMWbbFsb/Anson.jpg",
   },
   {
     name: "Pratirath Gupta",
