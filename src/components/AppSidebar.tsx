@@ -59,24 +59,24 @@ export function AppSidebar() {
       >
         <Menu className="h-5 w-5 text-white" />
       </button>
-      <div 
+
+      <div
         className={cn(
-          "fixed inset-y-0 left-0 z-[50] transition-transform duration-300",
+          "fixed inset-y-0 left-0 z-[50] bg-[#9b87f5] shadow-lg transition-transform duration-300",
           !open && "-translate-x-full"
         )}
         style={{
-          width: open ? '280px' : '0',
-          overflow: 'hidden'
+          maxWidth: open ? '280px' : '0', // Fixes width issues in mobile view
+          overflow: "hidden"
         }}
       >
         <div className="h-full">
           <Sidebar variant="floating" className="bg-[#9b87f5]">
-            <SidebarContent 
+            <SidebarContent
               className={cn(
-                "justify-between gap-10",
-                "transition-all duration-300",
+                "justify-between gap-10 transition-all duration-300",
                 !open && "opacity-0 pointer-events-none",
-                isMobile && open && "w-full max-w-[280px]"
+                isMobile && open && "w-full max-w-[280px] opacity-100 pointer-events-auto"
               )}
             >
               <SidebarGroup>
@@ -94,7 +94,7 @@ export function AppSidebar() {
                             !open && "justify-center",
                             "text-white font-semibold"
                           )}
-                          onClick={() => setOpen(false)}
+                          onClick={() => isMobile && setOpen(false)}
                         >
                           {item.icon}
                           {open && <span>{item.title}</span>}
@@ -111,6 +111,7 @@ export function AppSidebar() {
     </>
   );
 }
+
 
 const Logo = () => (
   <Link
