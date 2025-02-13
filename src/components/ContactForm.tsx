@@ -20,7 +20,7 @@ export const ContactForm = () => {
 
     try {
       // Replace this URL with your Zapier webhook URL
-      const webhookUrl = "YOUR_ZAPIER_WEBHOOK_URL";
+      const webhookUrl = "https://hooks.zapier.com/hooks/catch/20855151/2w4qwpd/";
       
       const response = await fetch(webhookUrl, {
         method: "POST",
