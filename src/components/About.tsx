@@ -9,7 +9,7 @@ const team = [
   {
     name: "Mohit Manglani",
     role: "Co-Founder",
-    image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&w=300&h=300",
+    image: "https://i.ibb.co/rGjQNMRM/Mohit.jpg",
   },
   {
     name: "Anson Leslee",
