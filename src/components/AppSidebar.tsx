@@ -33,15 +33,16 @@ const items = [
     icon: <Users className="text-white h-5 w-5 flex-shrink-0" />
   },
   {
+    title: "Chat Assistant",
+    url: "/chat",
+    icon: <MessageCircle className="text-white h-5 w-5 flex-shrink-0" />
+  },
+  {
     title: "Contact",
     url: "/contact",
     icon: <Phone className="text-white h-5 w-5 flex-shrink-0" />
   },
-  {
-    title: "Chat",
-    url: "/chat",
-    icon: <MessageCircle className="text-white h-5 w-5 flex-shrink-0" />
-  }
+  
 ];
 
 export function AppSidebar() {
