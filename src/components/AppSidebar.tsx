@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { House, Users, Phone, Blocks, SquareChevronRight } from "lucide-react";
+import { House, Users, Phone, Blocks, SquareChevronLeft, SquareChevronRight, Briefcase } from "lucide-react";
 import { useLocation, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -21,6 +21,11 @@ const items = [
     title: "Services",
     url: "/services",
     icon: <Blocks className="text-white h-5 w-5 flex-shrink-0" />
+  },
+  {
+    title: "Our Work",
+    url: "/work",
+    icon: <Briefcase className="text-white h-5 w-5 flex-shrink-0" />
   },
   {
     title: "Team",
