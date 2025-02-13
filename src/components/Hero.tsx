@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom"; // Import Link
 
 export const Hero = () => {
   return (
@@ -47,12 +48,14 @@ export const Hero = () => {
           <p className="text-xl md:text-2xl text-gray-200 mb-8 animate-fade-up [animation-delay:400ms] hover:text-white transition-colors duration-300">
             We have a plethora of our custom built Autonomous Agents and a host of compatible services that we use to empower your business. We build for convenience and scale based on requirements. 
           </p>
-          <Button
-            size="lg"
-            className="animate-fade-up [animation-delay:600ms] bg-brand-purple hover:bg-brand-purple/90 transform hover:scale-110 transition-all duration-300 hover:shadow-lg hover:shadow-brand-purple/50"
-          >
-            Explore Our Services <ArrowRight className="ml-2 h-4 w-4 animate-bounce" />
-          </Button>
+          <Link to="/services"> {/* Wrap Button with Link */}
+            <Button
+              size="lg"
+              className="animate-fade-up [animation-delay:600ms] bg-brand-purple hover:bg-brand-purple/90 transform hover:scale-110 transition-all duration-300 hover:shadow-lg hover:shadow-brand-purple/50"
+            >
+              Explore Our Services <ArrowRight className="ml-2 h-4 w-4 animate-bounce" />
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
