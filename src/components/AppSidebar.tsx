@@ -28,11 +28,6 @@ const items = [
     icon: <Briefcase className="text-white h-5 w-5 flex-shrink-0" />
   },
   {
-    title: "Chat Assistant",
-    url: "/chat",
-    icon: <MessageCircle className="text-white h-5 w-5 flex-shrink-0" />
-  },
-  {
     title: "Team",
     url: "/team",
     icon: <Users className="text-white h-5 w-5 flex-shrink-0" />
