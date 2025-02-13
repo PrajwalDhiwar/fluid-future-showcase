@@ -71,6 +71,36 @@ export type Database = {
         }
         Relationships: []
       }
+      temp_files: {
+        Row: {
+          content: string | null
+          content_type: string
+          created_at: string | null
+          file_path: string
+          filename: string
+          id: string
+          session_id: string
+        }
+        Insert: {
+          content?: string | null
+          content_type: string
+          created_at?: string | null
+          file_path: string
+          filename: string
+          id?: string
+          session_id: string
+        }
+        Update: {
+          content?: string | null
+          content_type?: string
+          created_at?: string | null
+          file_path?: string
+          filename?: string
+          id?: string
+          session_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

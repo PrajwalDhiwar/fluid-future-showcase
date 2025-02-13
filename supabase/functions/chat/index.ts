@@ -1,5 +1,6 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -12,7 +13,37 @@ serve(async (req) => {
   }
 
   try {
-    const { messages } = await req.json()
+    const { messages, files } = await req.json()
+
+    // Initialize Supabase client
+    const supabase = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+    )
+
+    // Get content from uploaded files
+    let context = ''
+    if (files && files.length > 0) {
+      const { data: filesData, error: filesError } = await supabase
+        .from('temp_files')
+        .select('content')
+        .in('file_path', files.map((f: any) => f.path))
+
+      if (filesError) throw filesError
+
+      context = filesData
+        .map((file: any) => file.content)
+        .filter(Boolean)
+        .join('\n\n')
+    }
+
+    // Prepare system message with context
+    const systemMessage = {
+      role: 'system',
+      content: `You are a helpful assistant. ${
+        context ? 'Use the following context to answer questions:\n\n' + context : ''
+      }`
+    }
 
     const response = await fetch('https://api.groq.com/v1/chat/completions', {
       method: 'POST',
@@ -21,8 +52,8 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        messages,
-        model: "mixtral-8x7b-32768",
+        messages: [systemMessage, ...messages],
+        model: "llama2-70b-4096",
         temperature: 0.5,
         max_tokens: 1024,
       }),
