@@ -36,6 +36,11 @@ const items = [
     title: "Contact",
     url: "/contact",
     icon: <Phone className="text-white h-5 w-5 flex-shrink-0" />
+  },
+  {
+    title: "Chat",
+    url: "/chat",
+    icon: <MessageCircle className="text-white h-5 w-5 flex-shrink-0" />
   }
 ];
 
