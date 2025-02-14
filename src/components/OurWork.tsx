@@ -1,6 +1,7 @@
 
 import { Card } from "@/components/ui/card";
 import { MessageSquare, Bot, Network, Cpu } from "lucide-react";
+import { Link } from "react-router-dom";
 import {
   Carousel,
   CarouselContent,
@@ -8,6 +9,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Button } from "@/components/ui/button";
 
 const projects = [
   {
@@ -20,7 +22,11 @@ const projects = [
     title: "Autonomous Chat Assistants",
     description: "Building intelligent chat assistants that can understand context, maintain conversation flow, and provide accurate responses autonomously.",
     icon: MessageSquare,
-    color: "text-blue-400"
+    color: "text-blue-400",
+    action: {
+      label: "Try me",
+      link: "/chat"
+    }
   },
   {
     title: "Multi-Agent Systems",
@@ -43,7 +49,6 @@ const clients = [
   { name:"Supabase", logo: "/Supabase.webp"},
   { name:"Discord", logo: "/Discord.png"},
   { name:"Zapier", logo:"/Zapier.png"}
-
 ];
 
 export const OurWork = () => {
@@ -62,7 +67,20 @@ export const OurWork = () => {
                 <project.icon className={`h-6 w-6 sm:h-8 sm:w-8 ${project.color}`} />
                 <h3 className="text-lg sm:text-xl font-semibold text-white">{project.title}</h3>
               </div>
-              <p className="text-sm sm:text-base text-gray-300">{project.description}</p>
+              <p className="text-sm sm:text-base text-gray-300 mb-4">{project.description}</p>
+              {project.action && (
+                <div className="mt-2">
+                  <Link to={project.action.link}>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      className="text-blue-400 border-blue-400 hover:bg-blue-400/10"
+                    >
+                      {project.action.label}
+                    </Button>
+                  </Link>
+                </div>
+              )}
             </Card>
           ))}
         </div>
