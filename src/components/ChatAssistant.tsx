@@ -26,6 +26,8 @@ export const ChatAssistant = () => {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const { toast } = useToast();
 
+  const isLocked = uploadedFiles.length === 0;
+
   useEffect(() => {
     setSessionId(crypto.randomUUID());
   }, []);
@@ -59,7 +61,7 @@ export const ChatAssistant = () => {
       
       toast({
         title: "Success",
-        description: "File uploaded and processed successfully",
+        description: "File uploaded and processed successfully. You can now start chatting!",
       });
     } catch (error) {
       console.error('Error:', error);
@@ -73,7 +75,7 @@ export const ChatAssistant = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() || isLoading) return;
+    if (!input.trim() || isLoading || isLocked) return;
 
     const userMessage = { role: 'user' as const, content: input.trim() };
     setMessages(prev => [...prev, userMessage]);
@@ -129,10 +131,11 @@ export const ChatAssistant = () => {
             }}
           />
           <div className="h-[400px] sm:h-[600px] flex flex-col bg-white/5 rounded-lg">
-            <MessageList messages={messages} />
+            <MessageList messages={messages} isLocked={isLocked} />
             <MessageInput
               input={input}
               isLoading={isLoading}
+              isLocked={isLocked}
               onInputChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyPress}
               onSubmit={handleSubmit}

@@ -1,11 +1,12 @@
 
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Send } from "lucide-react";
+import { Send, Lock } from "lucide-react";
 
 type MessageInputProps = {
   input: string;
   isLoading: boolean;
+  isLocked: boolean;
   onInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
   onSubmit: (e: React.FormEvent) => void;
@@ -14,10 +15,22 @@ type MessageInputProps = {
 export const MessageInput = ({
   input,
   isLoading,
+  isLocked,
   onInputChange,
   onKeyDown,
   onSubmit
 }: MessageInputProps) => {
+  if (isLocked) {
+    return (
+      <div className="p-4 border-t border-white/10 bg-white/5">
+        <div className="flex items-center justify-center gap-2 text-gray-400 py-2">
+          <Lock className="w-4 h-4" />
+          <span>Upload a TXT file to start chatting</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <form onSubmit={onSubmit} className="p-4 border-t border-white/10 bg-white/5">
       <div className="flex gap-4">
