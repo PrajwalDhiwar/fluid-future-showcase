@@ -41,7 +41,7 @@ serve(async (req) => {
 
     // Initialize Google AI
     const genAI = new GoogleGenerativeAI(Deno.env.get('GOOGLE_API_KEY') ?? '')
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' })
+    const model = genAI.getGenerativeModel({ model: 'models/gemini-1.5-flash-8b' })
 
     // Generate initial analysis of the document
     const result = await model.generateContent(`
