@@ -52,12 +52,10 @@ serve(async (req) => {
     const chat = model.startChat({
       history: chatHistory,
       generationConfig: {
-        temperature: 1,
+        temperature: 0.9,
         topP: 0.95,
         topK: 40,
         maxOutputTokens: 8192,
-        temperature: 1,
-        responseMimeType: "text/plain"
       }
     })
 
@@ -67,7 +65,7 @@ serve(async (req) => {
       : messages[messages.length - 1].content
 
     const result = await chat.sendMessage(prompt)
-    const response = result.response.text()
+    const response = await result.response.text()
 
     return new Response(
       JSON.stringify({ 
