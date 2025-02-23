@@ -58,7 +58,7 @@ serve(async (req) => {
 
     if (uploadError) throw uploadError
 
-    // Store file metadata and content in the database
+    // Store file metadata, content, and analysis in the database
     const { error: dbError } = await supabase
       .from('temp_files')
       .insert({

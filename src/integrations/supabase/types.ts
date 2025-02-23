@@ -73,6 +73,7 @@ export type Database = {
       }
       temp_files: {
         Row: {
+          analysis: string | null
           content: string | null
           content_type: string
           created_at: string | null
@@ -82,6 +83,7 @@ export type Database = {
           session_id: string
         }
         Insert: {
+          analysis?: string | null
           content?: string | null
           content_type: string
           created_at?: string | null
@@ -91,6 +93,7 @@ export type Database = {
           session_id: string
         }
         Update: {
+          analysis?: string | null
           content?: string | null
           content_type?: string
           created_at?: string | null
