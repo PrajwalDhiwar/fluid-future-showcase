@@ -1,6 +1,7 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1'
+import { GoogleGenerativeAI } from "https://esm.sh/@google/generative-ai@^0.1.0"
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -26,48 +27,51 @@ serve(async (req) => {
     if (files && files.length > 0) {
       const { data: filesData, error: filesError } = await supabase
         .from('temp_files')
-        .select('content')
+        .select('content, analysis')
         .in('file_path', files.map((f: any) => f.path))
 
       if (filesError) throw filesError
 
       context = filesData
-        .map((file: any) => file.content)
+        .map((file: any) => `Document content:\n${file.content}\n\nDocument analysis:\n${file.analysis}`)
         .filter(Boolean)
         .join('\n\n')
     }
 
-    // Prepare system message with context
-    const systemMessage = {
-      role: 'system',
-      content: `You are a helpful assistant. ${
-        context ? 'Use the following context to answer questions:\n\n' + context : ''
-      }`
-    }
+    // Initialize Google AI
+    const genAI = new GoogleGenerativeAI(Deno.env.get('GOOGLE_API_KEY') ?? '')
+    const model = genAI.getGenerativeModel({ model: 'gemini-pro' })
 
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${Deno.env.get('GROQ_API_KEY')}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        messages: [systemMessage, ...messages],
-        model: "llama-3.1-8b-instant",
-        temperature: 0.5,
-        max_tokens: 1024,
-      }),
+    // Convert messages to Gemini format
+    const chatHistory = messages.map((msg: any) => ({
+      role: msg.role === 'assistant' ? 'model' : 'user',
+      parts: [msg.content]
+    }))
+
+    // Start chat
+    const chat = model.startChat({
+      history: chatHistory,
+      generationConfig: {
+        maxOutputTokens: 1000,
+        temperature: 0.7
+      }
     })
 
-    if (!response.ok) {
-      const responseData = await response.json().catch(() => ({}));
-      throw new Error(`Groq API error: ${response.status}. ${JSON.stringify(responseData)}`);
-    }
+    // Send message with context
+    const prompt = context 
+      ? `Based on this context:\n\n${context}\n\nUser question: ${messages[messages.length - 1].content}`
+      : messages[messages.length - 1].content
 
-    const data = await response.json()
+    const result = await chat.sendMessage(prompt)
+    const response = result.response.text()
 
     return new Response(
-      JSON.stringify({ response: data.choices[0].message }),
+      JSON.stringify({ 
+        response: {
+          role: 'assistant',
+          content: response
+        }
+      }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 200 

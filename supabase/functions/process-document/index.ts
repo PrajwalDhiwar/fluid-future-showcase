@@ -1,6 +1,7 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1'
+import { GoogleGenerativeAI } from "https://esm.sh/@google/generative-ai@^0.1.0"
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -38,6 +39,18 @@ serve(async (req) => {
     const fileName = `${crypto.randomUUID()}.${fileExt}`
     const filePath = `${sessionId}/${fileName}`
 
+    // Initialize Google AI
+    const genAI = new GoogleGenerativeAI(Deno.env.get('GOOGLE_API_KEY') ?? '')
+    const model = genAI.getGenerativeModel({ model: 'gemini-pro' })
+
+    // Generate initial analysis of the document
+    const result = await model.generateContent(`
+      Analyze this text document and provide a brief summary of its key points and main topics:
+      
+      ${text}
+    `)
+    const analysis = result.response.text()
+
     // Upload file to storage
     const { error: uploadError } = await supabase.storage
       .from('temp_files')
@@ -52,6 +65,7 @@ serve(async (req) => {
         filename: file.name,
         file_path: filePath,
         content: text,
+        analysis: analysis,
         content_type: file.type,
         session_id: sessionId
       })
@@ -62,7 +76,8 @@ serve(async (req) => {
       JSON.stringify({ 
         message: 'File processed successfully',
         filePath,
-        fileName: file.name
+        fileName: file.name,
+        analysis
       }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     )
