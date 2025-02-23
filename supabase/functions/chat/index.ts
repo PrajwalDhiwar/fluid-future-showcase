@@ -40,7 +40,7 @@ serve(async (req) => {
 
     // Initialize Google AI
     const genAI = new GoogleGenerativeAI(Deno.env.get('GOOGLE_API_KEY') ?? '')
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' })
+    const model = genAI.getGenerativeModel({ model: 'models/gemini-1.5-flash-8b' })
 
     // Convert messages to Gemini format
     const chatHistory = messages.map((msg: any) => ({
@@ -52,8 +52,12 @@ serve(async (req) => {
     const chat = model.startChat({
       history: chatHistory,
       generationConfig: {
-        maxOutputTokens: 1000,
-        temperature: 0.7
+        temperature: 1,
+        topP: 0.95,
+        topK: 40,
+        maxOutputTokens: 8192,
+        temperature: 1,
+        responseMimeType: "text/plain"
       }
     })
 
