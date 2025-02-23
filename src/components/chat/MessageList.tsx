@@ -1,5 +1,6 @@
 
 import { Lock } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 
 type Message = {
   role: 'user' | 'assistant';
@@ -38,9 +39,13 @@ export const MessageList = ({ messages, isLocked }: MessageListProps) => {
               message.role === 'user'
                 ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white'
                 : 'bg-white/10 text-gray-100'
-            } shadow-lg`}
+            } shadow-lg prose prose-invert`}
           >
-            {message.content}
+            {message.role === 'assistant' ? (
+              <ReactMarkdown>{message.content}</ReactMarkdown>
+            ) : (
+              message.content
+            )}
           </div>
         </div>
       ))}
