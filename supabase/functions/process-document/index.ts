@@ -44,19 +44,17 @@ serve(async (req) => {
     const model = genAI.getGenerativeModel({ model: 'models/gemini-1.5-flash-8b' })
 
     // Generate initial analysis of the document
-    const result = await model.generateContent(`
-      Analyze this text document and provide a brief summary of its key points and main topics:
+    const prompt = `
+      Analyze this text document and provide a brief summary of its key points and main topics.
+      Format your response using markdown for better readability.
       
       ${text}
-    `)
-    const analysis = result.response.text()
+    `;
 
-    // Upload file to storage
-    const { error: uploadError } = await supabase.storage
-      .from('temp_files')
-      .upload(filePath, file)
+    const result = await model.generateContent(prompt)
+    const analysis = await result.response.text()
 
-    if (uploadError) throw uploadError
+    console.log("Document analysis generated successfully");
 
     // Store file metadata, content, and analysis in the database
     const { error: dbError } = await supabase

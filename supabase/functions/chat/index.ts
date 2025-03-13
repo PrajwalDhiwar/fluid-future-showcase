@@ -25,17 +25,26 @@ serve(async (req) => {
     // Get content from uploaded files
     let context = ''
     if (files && files.length > 0) {
+      console.log("Retrieving file content from database...");
       const { data: filesData, error: filesError } = await supabase
         .from('temp_files')
         .select('content, analysis')
         .in('file_path', files.map((f: any) => f.path))
 
-      if (filesError) throw filesError
+      if (filesError) {
+        console.error("Error retrieving files:", filesError);
+        throw filesError;
+      }
 
-      context = filesData
-        .map((file: any) => `Document content:\n${file.content}\n\nDocument analysis:\n${file.analysis}`)
-        .filter(Boolean)
-        .join('\n\n')
+      if (!filesData || filesData.length === 0) {
+        console.error("No file data found for paths:", files.map((f: any) => f.path));
+      } else {
+        console.log(`Found ${filesData.length} files in database`);
+        context = filesData
+          .map((file: any) => `Document content:\n${file.content}\n\nDocument analysis:\n${file.analysis}`)
+          .filter(Boolean)
+          .join('\n\n')
+      }
     }
 
     // Initialize Google AI
@@ -59,13 +68,33 @@ serve(async (req) => {
       }
     })
 
-    // Send message with context
-    const prompt = context 
-      ? `Based on this context:\n\n${context}\n\nUser question: ${messages[messages.length - 1].content}`
-      : messages[messages.length - 1].content
+    // Prepare system instruction for markdown formatting
+    const systemInstruction = `
+You are an AI assistant helping users with their documents. 
+Always format your responses using Markdown to improve readability:
+- Use **bold** for emphasis
+- Use bullet points or numbered lists for steps or items
+- Use headings (## Heading) for sections
+- Use \`code blocks\` for any technical content
+- Use > blockquotes for important notes
 
-    const result = await chat.sendMessage(prompt)
-    const response = await result.response.text()
+Based on the provided document, answer the user's questions thoroughly.
+    `;
+
+    // Send message with context and system instruction
+    const userQuestion = messages[messages.length - 1].content;
+    let prompt;
+    
+    if (context) {
+      prompt = `${systemInstruction}\n\nContext from uploaded documents:\n\n${context}\n\nUser question: ${userQuestion}`;
+    } else {
+      prompt = `${systemInstruction}\n\nUser question: ${userQuestion}`;
+    }
+
+    console.log("Sending prompt to Gemini...");
+    const result = await chat.sendMessage(prompt);
+    console.log("Received response from Gemini");
+    const response = await result.response.text();
 
     return new Response(
       JSON.stringify({ 

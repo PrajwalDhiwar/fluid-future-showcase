@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
@@ -25,12 +25,20 @@ export const ChatAssistant = () => {
   const [sessionId, setSessionId] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const { toast } = useToast();
+  const messageListRef = useRef<HTMLDivElement>(null);
 
   const isLocked = uploadedFiles.length === 0;
 
   useEffect(() => {
     setSessionId(crypto.randomUUID());
   }, []);
+
+  useEffect(() => {
+    // Scroll to bottom when new messages arrive
+    if (messageListRef.current) {
+      messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -46,6 +54,7 @@ export const ChatAssistant = () => {
       return;
     }
 
+    setIsLoading(true);
     const formData = new FormData();
     formData.append('file', file);
     formData.append('sessionId', sessionId);
@@ -59,6 +68,12 @@ export const ChatAssistant = () => {
 
       setUploadedFiles(prev => [...prev, { name: file.name, path: data.filePath }]);
       
+      // Add a welcome message from the assistant
+      setMessages([{
+        role: 'assistant',
+        content: `## Document Uploaded Successfully\n\nI've analyzed your document **${file.name}**.\n\n${data.analysis || 'Ask me any questions about the content!'}`
+      }]);
+
       toast({
         title: "Success",
         description: "File uploaded and processed successfully. You can now start chatting!",
@@ -70,6 +85,8 @@ export const ChatAssistant = () => {
         description: "Failed to process file. Please try again.",
         variant: "destructive",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -113,6 +130,14 @@ export const ChatAssistant = () => {
     }
   };
 
+  const handleFileRemove = (index: number) => {
+    setUploadedFiles(prev => prev.filter((_, i) => i !== index));
+    if (uploadedFiles.length <= 1) {
+      // Reset messages if removing the last file
+      setMessages([]);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-brand-dark to-[#1a1f3d] py-8 sm:py-12 md:py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -126,12 +151,10 @@ export const ChatAssistant = () => {
           <FileUpload
             onFileUpload={handleFileUpload}
             uploadedFiles={uploadedFiles}
-            onFileRemove={(index) => {
-              setUploadedFiles(prev => prev.filter((_, i) => i !== index));
-            }}
+            onFileRemove={handleFileRemove}
           />
           <div className="h-[400px] sm:h-[600px] flex flex-col bg-white/5 rounded-lg">
-            <MessageList messages={messages} isLocked={isLocked} />
+            <MessageList messages={messages} isLocked={isLocked} ref={messageListRef} />
             <MessageInput
               input={input}
               isLoading={isLoading}
