@@ -47,8 +47,10 @@ export const MessageList = forwardRef<HTMLDivElement, MessageListProps>(
               } shadow-lg`}
             >
               {message.role === 'assistant' ? (
-                <div className="prose prose-invert prose-sm max-w-none">
-                  <ReactMarkdown>{message.content}</ReactMarkdown>
+                <div className="prose prose-invert prose-sm max-w-none markdown-content">
+                  <ReactMarkdown>
+                    {message.content}
+                  </ReactMarkdown>
                 </div>
               ) : (
                 <div className="whitespace-pre-wrap">{message.content}</div>

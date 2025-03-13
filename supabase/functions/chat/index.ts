@@ -78,6 +78,17 @@ Always format your responses using Markdown to improve readability:
 - Use \`code blocks\` for any technical content
 - Use > blockquotes for important notes
 
+When creating tables, use proper Markdown table syntax:
+| Column 1 | Column 2 | Column 3 |
+| -------- | -------- | -------- |
+| Data 1   | Data 2   | Data 3   |
+
+Make sure tables have:
+- Header row
+- Separator row with hyphens (-------)
+- Properly aligned columns
+- Consistent spacing
+
 Based on the provided document, answer the user's questions thoroughly.
     `;
 

@@ -40,6 +40,50 @@ export const ChatAssistant = () => {
     }
   }, [messages]);
 
+  // Add global styles for markdown tables
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .markdown-content table {
+        border-collapse: collapse;
+        margin: 1rem 0;
+        width: 100%;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+      }
+      
+      .markdown-content th {
+        background-color: rgba(255, 255, 255, 0.1);
+        font-weight: 600;
+        text-align: left;
+        padding: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      
+      .markdown-content td {
+        padding: 0.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        vertical-align: top;
+      }
+      
+      .markdown-content tr:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+      
+      .markdown-content pre {
+        overflow-x: auto;
+        background-color: rgba(0, 0, 0, 0.3);
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+      }
+    `;
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
